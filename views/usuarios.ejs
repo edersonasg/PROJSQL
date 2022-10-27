@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina Home</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style/usuarios.css">
+    <link rel="stylesheet" href="/css/style/nav.css">
+
+</head>
+
+<body>
+    <%- include('nav.ejs') %>
+        <div class="container home">
+            <div class="content">
+                <table border="1">
+                    <thead>
+                        <th class="center">NOME</th>
+                        <th>IDADE</th>
+                        <th>EMAIL</th>
+                    </thead>
+                    <tbody id="tbody">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container ">
+            <div class="background ">
+                <div class="shape "></div>
+                <div class="shape "></div>
+            </div>
+        </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js " integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk " crossorigin="anonymous "></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js " integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK " crossorigin="anonymous "></script>
+<script src="/js/bootstrap.min.js "></script>
+
+<script type="text/javascript ">
+    async function abrir() {
+        try {
+            const resposta = await fetch('./api/usersAPI')
+            const body = await resposta.json();
+
+            const tamanhoArray = body.length;
+
+            let tbody = document.getElementById('tbody');
+            for (let i = 0; i < tamanhoArray; i++) {
+                //cria uma linha, ou seja, insere o elemento linha
+                let tr = tbody.insertRow();
+
+                //cria as colunas na linha, ou seja, insere os elementos coluna
+                let td_nome = tr.insertCell();
+                let td_idade = tr.insertCell();
+                let td_email = tr.insertCell();
+
+                //preenche os elementos criados anteriormente, e os preenche com os dados do objeto
+                td_nome.innerText = body[i].nome_usuario;
+                td_idade.innerText = body[i].idade_usuario + " anos";
+                td_email.innerText = body[i].email_usuario;
+
+
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    abrir()
+</script>
+
+</html>

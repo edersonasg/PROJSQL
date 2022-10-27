@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina Home</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style/index.css">
+    <link rel="stylesheet" href="/css/style/nav.css">
+    <link rel="stylesheet" href="/css/style/cadastro.css">
+
+</head>
+
+<body>
+    <%- include('nav.ejs') %>
+        <section class="home "></section>
+
+        <div class="container ">
+            <div class="background ">
+                <div class="shape "></div>
+                <div class="shape "></div>
+            </div>
+            <form>
+                <h3>SCP</h3>
+
+                <label for="username ">Nome</label>
+                <input type="text " placeholder="Nome" id="username">
+
+
+                <label for="idade ">Idade</label>
+                <input type="text " placeholder="Idade" id="idade">
+
+                <label for="email ">Email</label>
+                <input type="text " placeholder="Email" id="email">
+
+                <div class="botao">
+                    <a href="javascript:void(0)" onclick="cadastro();">CADASTRAR</a>
+                </div>
+            </form>
+        </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js " integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk " crossorigin="anonymous "></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js " integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK " crossorigin="anonymous "></script>
+<script src="/js/bootstrap.min.js "></script>
+
+<script type="text/javascript ">
+    function cadastro() {
+
+        try {
+            const nome = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const idade = document.getElementById('idade').value;
+
+            const data = {
+                nome: nome,
+                email: email,
+                idade: idade,
+            };
+
+            fetch('./api/usersInserir', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+
+                })
+
+        } catch (error) {
+            console.log(error);
+        }
+        alert("Usuario Cadastrado");
+        window.location.href = '/';
+    }
+</script>
+
+</html>
